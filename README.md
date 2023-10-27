@@ -1,1 +1,6 @@
-# Eccard_Montenegro_SoftAgenda
+#SoftAgenda
+#Descrição
+
+#Função e Motivação
+
+#Biblioteca Gráfica
