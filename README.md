@@ -19,7 +19,8 @@ O aplicativo será capaz de:
 + Salvar as curvas apresentadas em arquivos de imagem.
 
 ## GUI
-A partir de uma GUI construída a partir da biblioteca Tkinter da linguagem Python, o usuário poderá navegar de maneira intuitiva através dos dados coletados na web e atualizados em tempo real para que se adequem as particularidades de cada cadastro, como endereço e fuso horário. Desse modo, as informações são exibidas  com base na relevância, afim de se adequar ao planejamento do usuário.
+Menu:
+![](Images/armazenar_valores.png "Definir valores")
 
 
 
