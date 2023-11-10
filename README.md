@@ -20,7 +20,7 @@ O aplicativo será capaz de:
 
 ## GUI
 Menu:
-![](Images/armazenar_valores.png "Definir valores")
+![](images/menu_readme.jpeg "Menu")
 
 
 
