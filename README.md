@@ -19,7 +19,8 @@ O aplicativo será capaz de:
 + Salvar as curvas apresentadas em arquivos de imagem.
 
 ## GUI
-Biblioteca gráfica utilizada: tkinter
+Biblioteca gráfica utilizada: tkinter.
+
 Mo meu principal, o usuário deverar preencher as informações de Impedância Característica Zc, Carga Zl e distância d (para o caso de stub duplo) e, após isto, deverá selecionar o tipo de casamento que deseja efetuar, dessa maneira o usuário será direcionado a respectiva aba contendo os gráficos e os dados tabelados:
 ![](images/menu_readme.jpeg "Menu")
 
