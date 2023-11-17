@@ -1,11 +1,11 @@
-import tkinter as tk
-from tkinter import RIGHT, Button, ttk
 import numpy as np
 from PIL import Image, ImageTk
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
 NavigationToolbar2Tk)
+import tkinter as tk
+from tkinter import RIGHT, Button, ttk
 import math
 
 # Função a ser aplicada nos botões
