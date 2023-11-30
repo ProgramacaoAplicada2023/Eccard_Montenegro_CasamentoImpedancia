@@ -1,23 +1,19 @@
-import numpy as np
-from PIL import Image, ImageTk
-from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
-NavigationToolbar2Tk)
 import tkinter as tk
 from tkinter import RIGHT, Button, ttk
-import math
+import numpy as np
+from PIL import Image, ImageTk
+from mudar_tab import mudar_tab
+from casamento import *
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, 
+NavigationToolbar2Tk)
 
-# Função a ser aplicada nos botões
-def mudar_tab(notebook, tab_destino):
-    Tabs = notebook
-    Tabs.select(tab_destino)
-    
+casamento = Casamento(zo=50,zl=10,freq=10000,l_linha=10,amplitude=15)
 
 # root window
 root = tk.Tk()
 
-# Tamanho da tela do usuário
+# Adquirir tamanho da tela
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
@@ -27,10 +23,9 @@ root.geometry(f"{width}x{heigth}")
 
 # root.geometry('800x600')
 root.configure(bg="white")
-root.title('Casa Impedância')
+root.title('Casamento de Impedâncias')
 
-
-# Notebook para manusear diferentes abas)
+# Criando um notebook (Widget para manusear diferentes abas)
 notebook = ttk.Notebook(root, height= screen_height, width=screen_width)
 notebook.pack(pady=0, expand=False)
 
@@ -39,107 +34,118 @@ frame1 = ttk.Frame(notebook, width=800 , height=600)
 frame2 = ttk.Frame(notebook, width=800 , height=600)
 frame3 = ttk.Frame(notebook, width=800 , height=600)
 frame4 = ttk.Frame(notebook, width=800 , height=600)
-frame5 = ttk.Frame(notebook, width=800 , height=600)
+
 
 frame1.pack(fill='both', expand=True)  # Menu
 frame2.pack(fill='both', expand=True)  # Gerador Excitação independente
 frame3.pack(fill='both', expand=True)  # Gerador Shunt
 frame4.pack(fill='both', expand=True)  # Gerador Série
-frame5.pack(fill='both', expand=True)
 
-# adicionando abas ao notebook
+# add frames to notebook
 notebook.add(frame1, text='Menu')
-notebook.add(frame2, text='Reatância Série')
-notebook.add(frame3, text='Trasformador 1/4')
-notebook.add(frame4, text='Stub Simples')
-notebook.add(frame5, text='Stub Duplo')
+notebook.add(frame2, text='Casamento Série')
+notebook.add(frame3, text='Stub em curto')
+notebook.add(frame4, text='Stub aberto')
+
 
 # Menu
 
 ## Foto do menu 
-img_menu = ImageTk.PhotoImage(Image.open("Images/menu.png"))
+img_menu = ImageTk.PhotoImage(Image.open("Images/menu3.png"))
 texto_menu = tk.Label(frame1, image=img_menu)
 texto_menu.grid(row = 0, column = 0, columnspan=3,pady=20, padx=20, sticky="WE")
 
 ## Frame para armazenar as variáveis
-variaveis = tk.LabelFrame(frame1, text= "Inputs ", padx=50, pady=10)
+variaveis = tk.LabelFrame(frame1, text= "Insira aqui as variáveis: ", padx=50, pady=8)
 variaveis.grid(row = 1, column=0, padx=20)
 
 ## Variáveis
-label_Zc = tk.Label(variaveis,text='Zc:').grid(row=0, column=0)
-caixa_Zc = tk.Entry(variaveis, width=7)
-caixa_Zc.insert(0, 50)
-caixa_Zc.grid(row=0, column=1)
+label_zo = tk.Label(variaveis,text='Impedância Característica(Ohm):').grid(row=0, column=0)
+caixa_zo = tk.Entry(variaveis, width=7)
+caixa_zo.insert(0, 50)
+caixa_zo.grid(row=0, column=1)
 
-label_Zl = tk.Label(variaveis,text='Zl:').grid(row=1, column=0)
-caixa_Zl = tk.Entry(variaveis, width=7)
-caixa_Zl.insert(0, 20)
-caixa_Zl.grid(row=1, column=1)
+label_zl = tk.Label(variaveis,text='Impedância da carga(Ohm):').grid(row=1, column=0)
+caixa_zl = tk.Entry(variaveis, width=7)
+caixa_zl.insert(0, 10)
+caixa_zl.grid(row=1, column=1)
 
-label_d = tk.Label(variaveis,text='d:').grid(row=2, column=0)
-caixa_d = tk.Entry(variaveis, width=7)
-caixa_d.insert(0, 24)
-caixa_d.grid(row=2, column=1)
+label_freq = tk.Label(variaveis,text='Frequência de excitação(MHz):').grid(row=2, column=0)
+caixa_freq = tk.Entry(variaveis, width=7)
+caixa_freq.insert(0, 100)
+caixa_freq.grid(row=2, column=1)
 
-label_b = tk.Label(variaveis,text='Beta:').grid(row=3, column=0)
-caixa_b = tk.Entry(variaveis, width=7)
-caixa_b.insert(0, 24)
-caixa_b.grid(row=3, column=1)
+label_l = tk.Label(variaveis,text='Comprimento da linha(m):').grid(row=4, column=0)
+caixa_l = tk.Entry(variaveis, width=7)
+caixa_l.insert(0, 10)
+caixa_l.grid(row=4, column=1)
 
-label_lbd = tk.Label(variaveis,text='Comprimento de onda:').grid(row=4, column=0)
-caixa_lbd = tk.Entry(variaveis, width=7)
-caixa_lbd.insert(0, 24)
-caixa_lbd.grid(row=4, column=1)
-
-label_f = tk.Label(variaveis,text='Frequância(Hz):').grid(row=0, column=2)
-caixa_f = tk.Entry(variaveis, width=7)
-caixa_f.insert(0, 0.01)
-caixa_f.grid(row=0, column=3)
-
-# Armazenando os inputs
-def armazenar():
-    Zc=float(caixa_Zc.get())
-    Zl=float(caixa_Zl.get())
-    d=float(caixa_d.get())
-    b=float(caixa_b.get())
-    lbd=float(caixa_lbd.get())
-    f=float(caixa_f.get())
+label_amp = tk.Label(variaveis,text='Amplitude do gerador(Volts):').grid(row=5, column=0)
+caixa_amp = tk.Entry(variaveis, width=7)
+caixa_amp.insert(0, 15)
+caixa_amp.grid(row=5, column=1)
 
 
 
+def salvar():
+    casamento.zo=float(caixa_zo.get())
+    casamento.zl=float(caixa_zl.get())
+    casamento.freq=float(caixa_freq.get())
+    casamento.l_linha=float(caixa_l.get())
+    casamento.amplitude=float(caixa_amp.get())
+
+
+
+## Botões
+button_salvar = tk.Button(frame1, text='Salvar valores', command=salvar, pady=10)
+button_salvar.grid(pady=10, row = 1, column = 2)
 
 ## Frame para armazenar alguns botões
 botoes_menu = tk.LabelFrame(frame1, padx=50, pady=10, border=0)
-botoes_menu.grid(row = 1, column=2, sticky="E")
+botoes_menu.grid(row = 1, column=3, sticky="E")
 
 ### Botões do frame
-botao_reat_ser = tk.Button(botoes_menu, text='Reatância Série', command=lambda:mudar_tab(notebook, frame2))
-botao_reat_ser.grid(row=0, pady=3, sticky="WE")
-botao_transf = tk.Button(botoes_menu, text='Tranformador 1/4', command=lambda:mudar_tab(notebook, frame3))
-botao_transf.grid(row=1, pady=3, sticky="WE")
-botao_stubsimples = tk.Button(botoes_menu, text='Stub Simples', command=lambda:mudar_tab(notebook, frame4))
-botao_stubsimples.grid(row=2, pady=3, sticky="WE")
-botao_stubduplo = tk.Button(botoes_menu, text='Stub Duplo', command=lambda:mudar_tab(notebook, frame4))
-botao_stubduplo.grid(row=3, pady=3, sticky="WE")
+botao_serie = tk.Button(botoes_menu, text='Casamento Série', command=lambda:mudar_tab(notebook, frame2))
+botao_serie.grid(row=0, pady=10, sticky="WE")
+botao_curto = tk.Button(botoes_menu, text='Stub em curto', command=lambda:mudar_tab(notebook, frame3))
+botao_curto.grid(row=1, pady=10, sticky="WE")
+botao_aberto = tk.Button(botoes_menu, text='Stub aberto', command=lambda:mudar_tab(notebook, frame4))
+botao_aberto.grid(row=2, pady=10, sticky="WE")
 
-#Cálculos e outputs do caso Reatância série
-def simular_serie():
-    f=float(caixa_f.get())
-    t = np.arange(0, 1000, 0.1)
-    y = np.cos(2*np.pi*f*t)
 
-    # Colocando o grafico
-    frame_grafico = tk.LabelFrame(frame2, padx=50, pady=50, border=0)
-    frame_grafico.grid(row=1,column=1, padx=10)
+
+def simular_serie(casamento):
+    zo = casamento.zo
+    zl = casamento.zl
+    freq = casamento.freq
+    l_linha = casamento.l_linha
+    amplitude = casamento.amplitude
+    x = np.linspace(0, l_linha,1000)
+
+    casamento_serie = Serie(zo=zo, zl=zl,freq=freq,l_linha = l_linha, amplitude = amplitude)
+    x1, dist = casamento_serie.simular()
     
-    fig = Figure(figsize = (3.3, 3.3), dpi = 100)
+    V = amplitude * np.cos(2*np.pi*freq * (l_linha-x)/300) + amplitude * np.cos(-2*np.pi*freq * (l_linha-x)/300)
+    
+    # Frame para colocar o grafico
+    frame_grafico = tk.LabelFrame(frame2, padx=10, pady=10, border=0)
+    frame_grafico.grid(row=3,column=1, columnspan=3)
+    
+    fig = Figure(figsize = (4.0, 3.0), dpi = 100)
+    
+    subplot = fig.add_subplot(1, 1, 1)
+    
+# Plotar a curva estacionária
+    subplot.plot(x, V)
+    subplot.plot(x, -1*V)
 
-    plt.plot(t, y)
-    plt.title('Tensão na linha')
-    plt.xlabel('t')
-    plt.ylabel('V')
-    plt.grid(True)
-    plt.show()
+# Configurações do gráfico
+    subplot.set_title("Padrão estacionário de tensão na linha")
+    subplot.set_ylim(-2*amplitude, 2*amplitude)
+    subplot.set_xlabel('x')
+    subplot.set_ylabel('y')
+    subplot.legend()
+    subplot.grid(True)
 
     # Canvas do Tkinter que contém a figura
     canvas = FigureCanvasTkAgg(fig, master = frame_grafico)
@@ -151,17 +157,174 @@ def simular_serie():
     # Menu abaixo do gráfico
     toolbar = NavigationToolbar2Tk(canvas,frame_grafico)
     toolbar.update()
+        
+    #inserindo resultados nos labels 
+    caixa_reatancia_serie.insert(0, x1)
+    caixa_distancia_serie.insert(0, dist)
+
+def simular_curto(casamento):
+    zo = casamento.zo
+    zl = casamento.zl
+    freq = casamento.freq
+    l_linha = casamento.l_linha
+    amplitude = casamento.amplitude
+    x = np.linspace(0, l_linha,1000)
+
+    casamento_curto = Curto(zo=zo, zl=zl,freq=freq,l_linha = l_linha, amplitude = amplitude)
+    dist, l = casamento_curto.simular()
+    
+    V = amplitude * np.cos(2*np.pi*freq * (l_linha-x)/300) + amplitude * np.cos(-2*np.pi*freq * (l_linha-x)/300)
+    
+    # Frame para colocar o grafico
+    frame_grafico = tk.LabelFrame(frame3, padx=10, pady=10, border=0)
+    frame_grafico.grid(row=3,column=1, columnspan=3)
+    
+    fig = Figure(figsize = (4.0, 3.0), dpi = 100)
+    
+    subplot = fig.add_subplot(1, 1, 1)
+  
+# Plotar a curva estacionaria
+    subplot.plot(x, V)
+    subplot.plot(x, -1*V)
+
+# Configurações do gráfico
+    subplot.set_title("Padrão estacionário de tensão na linha")
+    subplot.set_ylim(-2*amplitude, 2*amplitude)
+    subplot.set_xlabel('x')
+    subplot.set_ylabel('y')
+    subplot.legend()
+    subplot.grid(True)
+
+    # Canvas do Tkinter que contém a figura
+    canvas = FigureCanvasTkAgg(fig, master = frame_grafico)
+    canvas.draw()
+
+    # Colocando o Canvas na janela
+    canvas.get_tk_widget().pack()
+  
+    # Menu abaixo do gráfico
+    toolbar = NavigationToolbar2Tk(canvas,frame_grafico)
+    toolbar.update()
+        
+    #inserindo resultados nos labels 
+    caixa_distancia_curto.insert(0, dist*100)
+    caixa_comprimento_curto.insert(0, l*100)
 
 
+def simular_aberto(casamento):
+    zo = casamento.zo
+    zl = casamento.zl
+    freq = casamento.freq
+    l_linha = casamento.l_linha
+    amplitude = casamento.amplitude
+    x = np.linspace(0, l_linha,1000)
 
 
-# Aba casamento série(demais abas seguirão o mesmo padrão)
-button_simularserie = tk.Button(frame2, width=16, height=3, text='Simular', command = lambda:simular_serie())
-button_simularserie.grid(row=0, column=1, padx=200)
+    casamento_aberto = Aberto(zo=zo, zl=zl,freq=freq,l_linha = l_linha, amplitude = amplitude)
+    dist, l = casamento_aberto.simular()
+    
+    V = amplitude * np.cos(2*np.pi*freq * (l_linha-x)/300) + amplitude * np.cos(-2*np.pi*freq * (l_linha-x)/300)
+    
+    # Frame para colocar o grafico
+    frame_grafico = tk.LabelFrame(frame4, padx=10, pady=10, border=0)
+    frame_grafico.grid(row=3,column=1, columnspan=3)
+    
+    fig = Figure(figsize = (4.0, 3.0), dpi = 100)
+    
+    subplot = fig.add_subplot(1, 1, 1)
+       
+# Plotar a curva estacionaria
+    subplot.plot(x, V)
+    subplot.plot(x, -1*V)
 
-botao_menu_3 = tk.Button(frame2, width=16, height=3, text = "Menu", command = lambda:mudar_tab(notebook, frame1))
-botao_menu_3.grid(row=0, column=2)
+# Configurações do gráfico
+    subplot.set_title("Padrão estacionário de tensão na linha")
+    subplot.set_ylim(-2*amplitude, 2*amplitude)
+    subplot.set_xlabel('x')
+    subplot.set_ylabel('y')
+    subplot.legend()
+    subplot.grid(True)
+
+    # Canvas do Tkinter que contém a figura
+    canvas = FigureCanvasTkAgg(fig, master = frame_grafico)
+    canvas.draw()
+
+    # Colocando o Canvas na janela
+    canvas.get_tk_widget().pack()
+  
+    # Menu abaixo do gráfico
+    toolbar = NavigationToolbar2Tk(canvas,frame_grafico)
+    toolbar.update()
+        
+    #inserindo resultados nos labels 
+    caixa_distancia_aberto.insert(0, dist*100)
+    caixa_comprimento_aberto.insert(0, l*100)
+
+# Casamento Serie
+resultados_serie = tk.LabelFrame(frame2, text= "Resultados: ", padx=50, pady=10)
+resultados_serie.grid(row = 2, column=1, padx=20)
+
+label_reatancia_serie = tk.Label(resultados_serie,text='Reatância da Carga (Ohm):').grid(row=1, column=0)
+caixa_reatancia_serie = tk.Entry(resultados_serie, width=7)
+caixa_reatancia_serie.insert(0, 0)
+caixa_reatancia_serie.grid(row=1, column=1)
 
 
+label_distancia_serie = tk.Label(resultados_serie,text='Distancia da carga à reatância (m):').grid(row=2, column=0)
+caixa_distancia_serie = tk.Entry(resultados_serie, width=7)
+caixa_distancia_serie.insert(0, 0)
+caixa_distancia_serie.grid(row=2, column=1)
+
+botao_menu_1 = tk.Button(frame2, text = "Menu",width=16, height=2,  command = lambda:mudar_tab(notebook, frame1))
+botao_menu_1.grid(row=0,column=3)
+
+
+button_serie = tk.Button(frame2, width=16, height=2, text='Simular', command = lambda:simular_serie(casamento))
+button_serie.grid(row=0, column=1, padx=80)
+
+# Stub em curto
+resultados_curto = tk.LabelFrame(frame3, text= "Resultados: ", padx=50, pady=10)
+resultados_curto.grid(row = 2, column=1, padx=20)
+
+label_distancia_curto = tk.Label(resultados_curto,text='Distância do stub à carga(cm):').grid(row=1, column=0)
+caixa_distancia_curto = tk.Entry(resultados_curto, width=7)
+caixa_distancia_curto.insert(0, 0)
+caixa_distancia_curto.grid(row=1, column=1)
+
+
+label_comprimento_curto = tk.Label(resultados_curto,text='Comprimento do stub (cm):').grid(row=2, column=0)
+caixa_comprimento_curto = tk.Entry(resultados_curto, width=7)
+caixa_comprimento_curto.insert(0, 0)
+caixa_comprimento_curto.grid(row=2, column=1)
+
+botao_menu_2 = tk.Button(frame3, text = "Menu",width=16, height=2,  command = lambda:mudar_tab(notebook, frame1))
+botao_menu_2.grid(row=0,column=3)
+
+
+button_curto = tk.Button(frame3, width=16, height=2, text='Simular', command = lambda:simular_curto(casamento))
+button_curto.grid(row=0, column=1, padx=80)
+
+# Stub aberto
+resultados_aberto = tk.LabelFrame(frame4, text= "Resultados: ", padx=50, pady=10)
+resultados_aberto.grid(row = 2, column=1, padx=20)
+
+label_distancia_aberto = tk.Label(resultados_aberto,text='Distância do stub à carga(cm):').grid(row=1, column=0)
+caixa_distancia_aberto = tk.Entry(resultados_aberto, width=7)
+caixa_distancia_aberto.insert(0, 0)
+caixa_distancia_aberto.grid(row=1, column=1)
+
+
+label_comprimento_aberto = tk.Label(resultados_aberto,text='Comprimento do stub (cm):').grid(row=2, column=0)
+caixa_comprimento_aberto = tk.Entry(resultados_aberto, width=7)
+caixa_comprimento_aberto.insert(0, 0)
+caixa_comprimento_aberto.grid(row=2, column=1)
+
+botao_menu_3 = tk.Button(frame4, text = "Menu",width=16, height=2,  command = lambda:mudar_tab(notebook, frame1))
+botao_menu_3.grid(row=0,column=3)
+
+
+button_aberto = tk.Button(frame4, width=16, height=2, text='Simular', command = lambda:simular_aberto(casamento))
+button_aberto.grid(row=0, column=1, padx=80)
 
 root.mainloop()
+
