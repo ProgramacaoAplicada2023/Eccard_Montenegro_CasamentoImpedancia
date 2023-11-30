@@ -18,8 +18,14 @@ O aplicativo será capaz de:
 + Apresentar curvas relativas a impedância e tensão na linha, além de outros dados relevantes, na interface gráfica;
 + Salvar as curvas apresentadas em arquivos de imagem.
 
-## GUI
-Biblioteca gráfica utilizada: tkinter.
+## Instalação
+
+É necessário Python 3.11 ou superior.
+Faça o Download deste repositório.
+No terminal da IDE ou Windows execute o comando "pip install -r requirements.txt"
+Após isto, basta executar o programa "GUI.py"
+
+## GUI e Tutorial
 
 Mo meu principal, o usuário deverar preencher as informações de Impedância Característica Zc, Carga Zl e distância d (para o caso de stub duplo) e, após isto, deverá selecionar o tipo de casamento que deseja efetuar, dessa maneira o usuário será direcionado a respectiva aba contendo os gráficos e os dados tabelados:
 ![](images/menu_readme.jpeg "Menu")
