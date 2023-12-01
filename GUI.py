@@ -99,7 +99,7 @@ def salvar():
     casamento.amplitude=float(caixa_amp.get())
     
 # Salvar os valores atuais
-button_salvar = tk.Button(frame1, text='Salvar valores', command= salvar(), pady=10)
+button_salvar = tk.Button(frame1, text='Salvar valores', command= salvar, pady=10)
 button_salvar.grid(pady=10, row = 1, column = 2)
 
 # Modo escuro
