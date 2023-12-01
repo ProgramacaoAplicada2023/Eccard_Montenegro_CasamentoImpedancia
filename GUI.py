@@ -42,7 +42,7 @@ frame4 = ttk.Frame(notebook, width=800 , height=600)
 frame1.pack(fill='both', expand=True)  
 frame2.pack(fill='both', expand=True)  
 frame3.pack(fill='both', expand=True)  
-frame4.pack(fill='both', expand=True)  [
+frame4.pack(fill='both', expand=True)
 
 
 notebook.add(frame1, text='Menu')
