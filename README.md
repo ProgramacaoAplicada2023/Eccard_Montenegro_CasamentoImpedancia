@@ -21,7 +21,11 @@ O aplicativo será capaz de:
 
 ## Diagrama de classes
 
-##Fluxograma
+![](Diagramas/Classes.jpeg "Diagrama de classes")
+
+## Fluxograma
+
+![](Diagramas/Fluxograma.jpeg "Fluxograma")
 
 ## Instalação
 
