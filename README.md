@@ -8,7 +8,7 @@ Dentre os diversos métodos para se efetuar o casamento de impedância em uma li
 + Casamento através de um stub em aberto
 
 ## Motivação
-O aplicativo simula todo o processo matemático por trás da teoria do casamento de impedância, fornecedo um exemplo prático e funcional para diferentes situações
+O aplicativo simula todo o processo matemático por trás da teoria do casamento de impedância, fornecendo um exemplo prático e funcional para diferentes situações
 
 ## Função
 O aplicativo será capaz de: 
