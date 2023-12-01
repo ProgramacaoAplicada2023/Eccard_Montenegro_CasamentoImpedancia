@@ -39,10 +39,10 @@ frame3 = ttk.Frame(notebook, width=800 , height=600)
 frame4 = ttk.Frame(notebook, width=800 , height=600)
 
 
-frame1.pack(fill='both', expand=True)  # Menu
-frame2.pack(fill='both', expand=True)  # Gerador Excitação independente
-frame3.pack(fill='both', expand=True)  # Gerador Shunt
-frame4.pack(fill='both', expand=True)  # Gerador Série
+frame1.pack(fill='both', expand=True)  
+frame2.pack(fill='both', expand=True)  
+frame3.pack(fill='both', expand=True)  
+frame4.pack(fill='both', expand=True)  [
 
 
 notebook.add(frame1, text='Menu')
@@ -59,7 +59,7 @@ texto_menu = tk.Label(frame1, image=img_menu)
 texto_menu.grid(row = 0, column = 0, columnspan=3,pady=20, padx=20, sticky="WE")
 
 ## Label onde serão inseriadas as variáveis
-variaveis = tk.LabelFrame(frame1, text= "Insira aqui as variáveis: ", padx=50, pady=8)
+variaveis = tk.LabelFrame(frame1, text= "Insira as variáveis: ", padx=50, pady=8)
 variaveis.grid(row = 1, column=0, padx=20)
 
 # Variáveis
