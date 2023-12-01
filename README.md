@@ -38,7 +38,7 @@ O aplicativo será capaz de:
 A biblioteca gráfica utilizada é a tkinter do python [https://docs.python.org/pt-br/3/library/tkinter.html].
 
 ## Menu
-Mo meu principal, há 6 campos:
+Mo menu principal, há 6 campos:
 
 + Impedância Característica(Ohm): impedância da linha de transmissão com a qual o usuário deseja casar a carga, dada em Ohms.
 + Impedância da Carga(Ohm): impedância da carga a ser casada com a linha de transmissão, dada em Ohms.
