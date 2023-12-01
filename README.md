@@ -41,7 +41,7 @@ A biblioteca gráfica utilizada é a tkinter do python [https://docs.python.org/
 Mo meu principal, há 6 campos:
 
 + Impedância Característica(Ohm): impedância da linha de transmissão com a qual o usuário deseja casar a carga, dada em Ohms.
-+ Impedância da Carga(Ohm): impedência da carga a ser casada com a linha de transmissão, dada em Ohms.
++ Impedância da Carga(Ohm): impedância da carga a ser casada com a linha de transmissão, dada em Ohms.
 + Frequência de excitação(MHz): frequência do sinal de tensão no gerador da linha de transmissão, dada em MHz.
 + Comprimento da linha(m): comprimento da linha de transmissão sem a carga acoplada.
 + Amplitude do gerador(Volts): amplitude da tensão senoidal do gerador.
