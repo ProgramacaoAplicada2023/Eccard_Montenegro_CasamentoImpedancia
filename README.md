@@ -4,9 +4,8 @@
 A máxima transferência de potência de uma fonte para uma carga em uma linha de transmissão é obtida através do casamento de impedância.
 Dentre os diversos métodos para se efetuar o casamento de impedância em uma linhas de transmissão, o aplicativo em questão foca nos métodos aplicados em linhas de transmissão com impedância característica real (sem perdas), a saber:
 + Casamento através da inserção de reatância em série com a carga
-+ Casamento através do transformador de quarto de onda
-+ Casamento através de stub simples
-+ Casamento através de stub duplo
++ Casamento através de um stub em curto-circuito
++ Casamento através de um stub em aberto
 
 ## Motivação
 O aplicativo simula todo o processo matemático por trás da teoria do casamento de impedância, fornecedo um exemplo prático e funcional para diferentes situações
@@ -14,9 +13,9 @@ O aplicativo simula todo o processo matemático por trás da teoria do casamento
 ## Função
 O aplicativo será capaz de: 
 + Manipular dados e condições de casamento inseridas pelo usuário;
-+ Exibir os resultados tabelados em uma interface gráfica;
-+ Apresentar curvas relativas a impedância e tensão na linha, além de outros dados relevantes, na interface gráfica;
-+ Salvar as curvas apresentadas em arquivos de imagem.
++ Exibir os resultados em uma interface gráfica;
++ Apresentar uma curva relativa a tensão na linha;
++ Salvar a curva apresentada em um arquivo de imagem.
 
 
 ## Diagrama de classes
@@ -32,7 +31,7 @@ O aplicativo será capaz de:
 + É necessário Python 3.11 ou superior.
 + Faça o Download deste repositório.
 + No terminal da IDE ou Windows execute o comando "pip install -r requirements.txt"
-+ Após isto, basta executar o programa "GUI.py"
++ Após isto, basta executar o programa "GUI.py", cujo arquivo deve estar na mesma pasta que "imagens" e "casamento.py".
 
 # GUI e Tutorial
 
